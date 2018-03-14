@@ -54,7 +54,7 @@ class FileTraverser  {
      * @param DirectoryIterator $directory
      * @return array|string
      **/
-    function traverseDirectory(\DirectoryIterator $directory)
+    private function traverseDirectory(\DirectoryIterator $directory)
     {
         $data = [];
 
