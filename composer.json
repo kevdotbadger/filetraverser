@@ -1,0 +1,27 @@
+{
+    "name": "kevinruscoe/filetraverser",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kevin Ruscoe",
+            "email": "hello@kevinruscoe.me"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "KevinRuscoe\\FileTraverser\\": "src/"
+        },
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "KevinRuscoe\\FileTraverser\\FileTraverserServiceProvider"
+            ],
+            "aliases": {
+                "FileTraverser": "KevinRuscoe\\FileTraverser\\FileTraverserFacade"
+            }
+        }
+    }
+}
