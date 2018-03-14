@@ -41,7 +41,7 @@ class FileTraverser  {
      *
      * @return FileSystem $this
      **/
-    public function forceDirectoryAsArray()
+    public function forceDirectoriesAsArray()
     {
         $this->forceDirectoriesAsArray = true;
 
@@ -87,7 +87,7 @@ class FileTraverser  {
                 continue;
             }
 
-            if ($this->forceDirectoryAsArray) {
+            if ($this->forceDirectoriesAsArray) {
                 $data[$item->getFilename()] = $item->getFilename();
 
                 continue;
