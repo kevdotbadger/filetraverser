@@ -4,7 +4,7 @@ namespace KevinRuscoe\FileTraverser;
 
 use Illuminate\Support\Facades\Facade;
 
-class FacadeExample extends Facade 
+class FileTraverserFacade extends Facade 
 {
     protected static function getFacadeAccessor()
     {
