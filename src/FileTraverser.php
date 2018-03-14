@@ -71,7 +71,7 @@ class FileTraverser  {
                 continue;
             }
 
-            $data[] = $item->getFilename();
+            $data[$item->getFilename()] = $item->getFilename();
         }
 
         return $data;
