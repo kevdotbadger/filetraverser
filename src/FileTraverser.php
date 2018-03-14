@@ -6,6 +6,8 @@ class FileTraverser  {
 
     private $root;
 
+    private $forceDirectoriesAsArray = false;
+
     /**
      * __construct
      *
@@ -33,6 +35,20 @@ class FileTraverser  {
     }
 
     /**
+     * Non-sequential keys makes the json encoder turn folders with files as 
+     * siblings into objects rather than arays. This sets the files keys as strings,
+     * which forces every directory to be an array.
+     *
+     * @return FileSystem $this
+     **/
+    public function forceDirectoryAsArray()
+    {
+        $this->forceDirectoriesAsArray = true;
+
+        return $this;
+    }
+
+    /**
      * Builds a tree of directories and files.
      *
      * @return array $structure
@@ -54,7 +70,7 @@ class FileTraverser  {
      * @param DirectoryIterator $directory
      * @return array|string
      **/
-    private function traverseDirectory(\DirectoryIterator $directory)
+    function traverseDirectory(\DirectoryIterator $directory)
     {
         $data = [];
 
@@ -67,6 +83,13 @@ class FileTraverser  {
                 $data[$item->getFilename()] = $this->traverseDirectory(
                     new \DirectoryIterator($item->getPathname())
                 );
+
+                continue;
+            }
+
+            if ($this->forceDirectoryAsArray) {
+                $data[$item->getFilename()] = $item->getFilename();
+
                 continue;
             }
 
