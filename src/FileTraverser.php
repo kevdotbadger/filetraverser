@@ -44,7 +44,7 @@ class FileTraverser  {
         }
 
         return $this->traverseDirectory(
-            new DirectoryIterator($this->root)
+            new \DirectoryIterator($this->root)
         );
     }
 
@@ -54,7 +54,7 @@ class FileTraverser  {
      * @param DirectoryIterator $directory
      * @return array|string
      **/
-    function traverseDirectory(DirectoryIterator $directory)
+    function traverseDirectory(\DirectoryIterator $directory)
     {
         $data = [];
 
@@ -65,7 +65,7 @@ class FileTraverser  {
 
             if ($item->isDir()) {
                 $data[$item->getFilename()] = $this->traverseDirectory(
-                    new DirectoryIterator($item->getPathname())
+                    new \DirectoryIterator($item->getPathname())
                 );
                 continue;
             }
