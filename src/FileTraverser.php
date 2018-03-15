@@ -16,9 +16,7 @@ class FileTraverser  {
      **/
     function __construct($root = null)
     {
-        $this->root = $root;
-
-        return $this;
+        return $this->setRoot($root);
     }
 
     /**
