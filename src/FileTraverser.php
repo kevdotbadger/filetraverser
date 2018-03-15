@@ -1,10 +1,12 @@
-<?php 
+<?php
 
 namespace KevinRuscoe\FileTraverser;
 
 class FileTraverser  {
 
     private $root;
+
+    private $ignore;
 
     /**
      * __construct
@@ -33,6 +35,19 @@ class FileTraverser  {
     }
 
     /**
+     * Sets the ignore list.
+     *
+     * @param array $ignore
+     * @return FileSystem $this
+     **/
+    public function ignore($ignore = [])
+    {
+        $this->ignore = array_merge($this->ignore, $ignore);
+
+        return $this;
+    }
+
+    /**
      * Builds a tree of directories and files.
      *
      * @return array $structure
@@ -52,15 +67,21 @@ class FileTraverser  {
      * Sets the root to traverse from
      *
      * @param DirectoryIterator $directory
-     * @return array|string
+     * @return array $data
      **/
-    function traverseDirectory(\DirectoryIterator $directory)
+    private function traverseDirectory(\DirectoryIterator $directory)
     {
         $data = [];
 
         foreach ($directory as $item){
             if ($item->isDot()) {
                 continue;
+            }
+
+            if ($this->ignore) {
+                if (in_array($item->getFilename(), $this->ignore)) {
+                    continue;
+                }
             }
 
             if ($item->isDir()) {
