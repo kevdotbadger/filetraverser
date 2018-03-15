@@ -6,7 +6,7 @@ class FileTraverser  {
 
     private $root;
 
-    private $ignore;
+    private $ignore = [];
 
     /**
      * __construct
