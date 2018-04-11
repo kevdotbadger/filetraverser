@@ -8,11 +8,13 @@ class FileTraverser  {
 
     private $ignore = [];
 
+    private $formatter;
+
     /**
      * __construct
      *
      * @param string $root
-     * @return FileSystem $this
+     * @return FileTraverser $this
      **/
     function __construct($root = null)
     {
@@ -23,7 +25,7 @@ class FileTraverser  {
      * Sets the root to traverse from.
      *
      * @param string $root
-     * @return FileSystem $this
+     * @return FileTraverser $this
      **/
     public function setRoot($root)
     {
@@ -36,11 +38,24 @@ class FileTraverser  {
      * Sets the ignore list.
      *
      * @param array $ignore
-     * @return FileSystem $this
+     * @return FileTraverser $this
      **/
     public function ignore($ignore = [])
     {
         $this->ignore = array_merge($this->ignore, $ignore);
+
+        return $this;
+    }
+
+    /**
+     * Sets the callable to run each node through.
+     *
+     * @param callable $callable
+     * @return FileTraverser $this
+     **/
+    public function formatNodeAs($formatter)
+    {
+        $this->formatter = $formatter;
 
         return $this;
     }
@@ -86,6 +101,12 @@ class FileTraverser  {
                 $data[$item->getFilename()] = $this->traverseDirectory(
                     new \DirectoryIterator($item->getPathname())
                 );
+
+                continue;
+            }
+
+            if ($this->formatter) {
+                $data[$item->getFilename()] = call_user_func($this->formatter, $item);
 
                 continue;
             }
