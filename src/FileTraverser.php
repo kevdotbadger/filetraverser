@@ -2,21 +2,31 @@
 
 namespace KevinRuscoe\FileTraverser;
 
-class FileTraverser  {
-
+class FileTraverser
+{
+    /**
+     * The root.
+     *
+     * @var string
+     */
     private $root;
 
+    /**
+     * A list of directories to ignore.
+     *
+     * @var array
+     */
     private $ignore = [];
 
     private $formatter;
 
     /**
-     * __construct
+     * Builds a new FileTraverse
      *
      * @param string $root
      * @return FileTraverser $this
      **/
-    function __construct($root = null)
+    public function __construct($root)
     {
         return $this->setRoot($root);
     }
@@ -86,7 +96,7 @@ class FileTraverser  {
     {
         $data = [];
 
-        foreach ($directory as $item){
+        foreach ($directory as $item) {
             if ($item->isDot()) {
                 continue;
             }
